@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-django
+  namespace: mentabook
+spec:
+  selector:
+    matchLabels:
+      app: backend-django
+  template:
+    metadata:
+      labels:
+        app: backend-django
+    spec:
+      containers:
+      - name: backend-django
+        image: smuraiwarrior2012/itis_mentalbook_backend:1.0.2
+        env:
+          - name: POSTGRESQL_DB_HOST
+            value: postgres-svc.mentabook.svc.cluster.local
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_DB
+            value: postgres
+          - name: CELERY_BROKER_URL
+            value: redis://redis:6379
+          - name: CELERY_RESULT_BACKEND
+            value: redis:6379
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000

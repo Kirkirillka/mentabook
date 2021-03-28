@@ -1,0 +1,32 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mentabook
+spec:
+  rules:
+  - host: mentabook.local
+    http:
+      paths:
+      # - path: /api
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: backend-django
+      #       port:
+      #         number: 5000
+      - path: /static
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80

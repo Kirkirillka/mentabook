@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: mentabook
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: smuraiwarrior2012/itis_mentalbook_frontend:1.0.0
+        env:
+          - name: POSTGRESQL_DB_HOST
+            value: postgres-svc.mentabook.svc.cluster.local
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
