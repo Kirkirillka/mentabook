@@ -10,7 +10,7 @@ def serve(request, path):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'(?P<path>(^/?$|.*\.(js|css)))', serve),
+    #re_path(r'(?P<path>(^/?$|.*\.(js|css)))', serve),
     path('', include('backend.events.urls')),
     path('', include('backend.users.urls')),
 
