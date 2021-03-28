@@ -1,7 +1,5 @@
-**/node_modules
-headache.lock
-tmp
-dist
-*.pyc
-**/.vscode
-**/.env
+frontend
+venv
+.dockerignore
+Dockerfile
+docker-compose.yaml
