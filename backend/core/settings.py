@@ -27,12 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g&rc56tubu-07ty4j*#z!-b4bqv$+wd=%-zqp@0alq^tbj#+%0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") == "True"
-
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+DEBUG = os.getenv("DEBUG",True)
 
 
 # Application definition
@@ -90,35 +85,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.core.wsgi.application'
 
 
-def get_db():
-    if DEBUG:
-        return {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST' : 'localhost',
-            'PORT': 5432,
-        }
-    else:
-        return {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'HOST': 'db',
-            'PORT': 5432
-        }
-
-
 DATABASES = {
 
-    'default': get_db()
-
-
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': 'mydatabase',
-    # }
+    "default": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv("POSTGRESQL_DB_HOST", default="localhost"),
+        'NAME': os.getenv("POSTGRESQL_DB_NAME",default="postgres"),
+        'USER': os.getenv("POSTGRESQL_DB_USER_NAME",default="postgres"),
+        'PASSWORD': os.getenv("POSTGRESQL_DB_USER_PASS",default="postgres"),
+    }
 }
 
 
