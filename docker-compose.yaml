@@ -37,6 +37,8 @@ services:
       - POSTGRESQL_DB_NAME=postgres
       - POSTGRESQL_DB_USER_NAME=postgres
       - POSTGRESQL_DB_USER_PASS=postgres
+      - CELERY_BROKER_URL=redis://redis:6379
+      - CELERY_RESULT_BACKEND=redis://redis:6379
     depends_on:
       - db
       - redis
